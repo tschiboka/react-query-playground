@@ -1,6 +1,6 @@
 import React from "react";
-import { useQuery, useMutation } from "react-query";
-import { useForm } from "react-hook-form";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+// import { useForm } from "react-hook-form";
 
 const POSTS = [
     { id: 1, title: "Post 1" },
@@ -13,36 +13,51 @@ const RenderCounter = () => {
     const wait = (duration: number) =>
         new Promise((resolve) => setTimeout(resolve, duration));
 
+    const queryClient = useQueryClient();
     const postQuery = useQuery({
         queryKey: ["posts"],
-        queryFn: () => wait(2000).then(() => [...POSTS]),
-        // queryFn: () => Promise.reject("Error"),
+        queryFn: () => wait(1000).then(() => [...POSTS]),
+        // queryFn: () => Promise.reject("Error")
     });
 
     const newPostMutation = useMutation({
         mutationFn: (title: string) =>
             wait(1000).then(() => {
-                POSTS.push({ id: Math.floor(Math.random() * 1000), title });
+                POSTS.unshift({ id: Math.floor(Math.random() * 1000), title });
+                console.log(POSTS);
             }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["posts"] });
+            setTitle("");
+        },
     });
 
-    const submitPost = (title: string) => newPostMutation.mutate(title);
+    const submitPost = (event: React.FormEvent, title: string) => {
+        event.preventDefault();
+        console.log(title);
+        newPostMutation.mutate(title);
+    };
 
     if (postQuery.isLoading) return <h1>Loading...</h1>;
     if (postQuery.error) return <pre>{JSON.stringify(postQuery.error)}</pre>;
 
-    console.log(title);
     return (
         <div>
             <ul>
                 {postQuery.data?.map((d) => (
-                    <li>{`id: ${d.id} title: ${d.title}`}</li>
+                    <li key={d.id}>{`id: ${d.id}, title: ${d.title}`}</li>
                 ))}
             </ul>
-            <form onSubmit={() => submitPost(title)}>
-                <input type="text" onChange={(e) => setTitle(e.target.value)} />
+            <form onSubmit={(e) => submitPost(e, title)}>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
 
-                <button type="submit">Submit</button>
+                <button type="submit" disabled={newPostMutation.isPending}>
+                    Submit New Post
+                </button>
             </form>
         </div>
     );

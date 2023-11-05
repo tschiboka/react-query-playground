@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 interface PostItem {
     userId: number;
@@ -15,21 +15,6 @@ const retrievePosts = async () => {
     return response.data as [PostItem];
 };
 
-const Post = () => {
-    const {
-        data: posts,
-        error,
-        isLoading,
-    } = useQuery("postsData", retrievePosts);
-
-    if (isLoading) return <div>Fetching posts...</div>;
-    if (error) return <div>An error occurred: {JSON.stringify(error)}</div>;
-
-    return (
-        <ul>
-            {posts && posts.map((post) => <li key={post.id}>{post.title}</li>)}
-        </ul>
-    );
-};
+const Post = () => {};
 
 export default Post;

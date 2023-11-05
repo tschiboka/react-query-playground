@@ -8,10 +8,11 @@ const Home = () => {
         setCurrentForm(name);
     };
 
-    const getFormElement = (formName: string) =>
-        formList.map((form) => form.name === formName && form.element);
+    const getFormElement = (formName: string) => {
+        const form = formList.filter((form) => form.name === formName);
+        if (form.length) return form[0].element;
+    };
 
-    console.log(currentForm);
     return (
         <div className="Home">
             <div className="button-list">
