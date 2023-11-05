@@ -1,5 +1,5 @@
 import FirstPost from "../FirstPost/FirstPost";
-import Post from "../Post/post";
+import Post from "../Post/Post";
 import SampleForm_1 from "../SampleForm_1/SampleForm_1";
 
 interface FormList {
