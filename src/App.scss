@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 22px;  
+    color: #ccc;
+}
+
+body {
+  overflow-y: hidden;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #111;
+}
+
+form {
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 1.5rem;
+  border: 1px solid #555;
+}
+
+ul {
+  overflow-y: scroll;
+  max-height: 200px;
+  padding: 1.5rem;
+  background-color: #222;
+  color: white;
+  list-style: none;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #ccc;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+input[type="submit"] {
+  max-width: 50%;
+}
