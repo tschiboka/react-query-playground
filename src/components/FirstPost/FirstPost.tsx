@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import Post from "../Post/post";
+import Post from "../Post/Post";
 
 let renderCount = 0;
 
