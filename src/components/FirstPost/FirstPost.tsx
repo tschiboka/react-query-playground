@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import Post from "../Post/Post";
 
 let renderCount = 0;
 
@@ -59,7 +58,6 @@ const FirstPost = () => {
                 )}
                 <input type="submit" />
             </form>
-            <Post />
         </div>
     );
 };

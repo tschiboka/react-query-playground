@@ -33,10 +33,10 @@ form {
 }
 
 ul {
-  width: 700px;
+  width: 100%;
   max-width: 700px;
-  overflow-y: scroll;
-  max-height: 200px;
+  overflow-y: auto;
+  max-height: 350px;
   padding: 1rem;
   background-color: #222;
   color: white;
